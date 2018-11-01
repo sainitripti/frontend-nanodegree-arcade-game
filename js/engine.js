@@ -22,7 +22,9 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        anim,
+        collision=false; //variable that stores if a collision has occured or not
 
     canvas.width = 505;
     canvas.height = 606;
@@ -47,6 +49,29 @@ var Engine = (function(global) {
         update(dt);
         render();
 
+        //checking for win condition
+         if (checkWinCase()){
+           render();
+           setTimeout(function(){
+             alert("You won!!!");
+             init();
+           },700);
+           return;
+         };
+
+        // checking for collision between player and enemy
+        checkCollisions();
+
+        //conditional check to reset game if collision has occured between player and enemy
+        if(collision){
+            render();
+            collision=false;
+            setTimeout(function(){
+                init();
+            },700);
+            return;
+        }
+
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
          */
@@ -55,7 +80,7 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        win.requestAnimationFrame(main);
+        anim=win.requestAnimationFrame(main);
     }
 
     /* This function does some initial setup that should only occur once,
@@ -81,6 +106,35 @@ var Engine = (function(global) {
         updateEntities(dt);
         // checkCollisions();
     }
+
+    //function for collision detection
+    function checkCollisions() {
+      if (!collision){
+        let playerCenterX = player.x+player.width/2; // x coordinate of player
+        let playerCenterY = player.y+player.width/2; // y coordinate of player
+        
+        //measure distance between player and enemies
+        allEnemies.forEach(function(enemy) {
+          let enemyCenterX = enemy.x+enemy.width/2; //x coordinate of enemy
+          let enemyCenterY = enemy.y+enemy.width/2; // y coordinate of enemy
+          //if distance between player and enemy is less than collsion will occur
+          if ((Math.pow(playerCenterX-enemyCenterX,2)+Math.pow(playerCenterY-enemyCenterY,2))<5000){  
+            collision = true ;
+            cancelAnimationFrame(anim);
+          };
+        });
+      };
+    };
+
+    //function to check win condition
+    function checkWinCase(){
+      //player reaches water
+      if (player.y<70){
+        cancelAnimationFrame(anim);
+        return true;
+      }
+      else return false;
+    };
 
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
@@ -162,6 +216,15 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+        //reseting the positions of player and enemies
+        enemy1.x = -150;
+        enemy1.y = 75;
+        enemy2.x = -100; 
+        enemy2.y = 150;
+        enemy3.x = -200; 
+        enemy3.y = 230;
+        player.x = 200; 
+        player.y = 325;
     }
 
     /* Go ahead and load all of the images we know we're going to need to
