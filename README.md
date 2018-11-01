@@ -1,6 +1,12 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+***Instructions***
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+1. The game has a player and various enemies.
+2. The player has initial position on the grass. 
+3. The player can move in four directions, viz, up, down, left and right using the arrows keys on keyboard.
+4. The player cannot go off the screen.
+5. The enemies will be moving in variable speeds on horizontal paths.
+6. The player needs to cross the path to reach the water without colliding with any of the enemies in order to win the game.
+7. Collision with any enemy will result in restarting of the game. 
