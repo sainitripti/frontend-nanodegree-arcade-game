@@ -4,10 +4,13 @@ frontend-nanodegree-arcade-game
 ***Instructions***
 
 How to download the game locally
+
 1. Dowload the zip file and extract it on your system 
     OR
    Clone this repository on your system.
 2. Run the index.html file in your browser to load the game.
+
+How to play the game
 
 1. The game has a player and various enemies.
 2. The player has initial position on the grass. 
